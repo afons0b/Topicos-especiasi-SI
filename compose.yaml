@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: gastos
+      POSTGRES_USER: gastos
+      POSTGRES_PASSWORD: gastos
+    ports:
+      - "55432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gastos -d gastos"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+    volumes:
+      - gastos_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  gastos_postgres_data:
+
